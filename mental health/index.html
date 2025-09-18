@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wellness Journal — Basic Frontend</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="card">
+      <div>
+        <h1>Wellness Journal</h1>
+        <small>Record moods, write reflections, and track trends</small>
+      </div>
+      <div>
+        <button id="privacyToggle" class="btn ghost">Privacy: Private</button>
+        <button id="exportPdf" class="btn" style="margin-left:8px">Export PDF</button>
+      </div>
+    </header>
+
+    <section class="card left">
+      <div>
+        <label>Daily Mood</label>
+        <div class="mood-row" style="margin-top:6px">
+          <div id="emojiSelector">
+            <button class="emoji-btn" data-emoji="😍">😍</button>
+            <button class="emoji-btn" data-emoji="😊">😊</button>
+            <button class="emoji-btn" data-emoji="😐">😐</button>
+            <button class="emoji-btn" data-emoji="😢">😢</button>
+            <button class="emoji-btn" data-emoji="😠">😠</button>
+          </div>
+          <div style="margin-left:8px">
+            <label class="small">Intensity <span id="intensityLabel">5</span></label>
+            <input id="intensity" class="slider" type="range" min="0" max="10" value="5">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label>Journal Entry</label>
+        <div class="toolbar">
+          <button data-cmd="bold">B</button>
+          <button data-cmd="italic">I</button>
+          <button data-cmd="underline">U</button>
+          <button id="insertTag">#Tag</button>
+          <button id="recordAudio">Record (mock)</button>
+        </div>
+        <div id="editor" class="editor" contenteditable="true" spellcheck="true"></div>
+        <div class="small">Autosaves every 3s. Attach tags with <em>#</em> or press <strong>#Tag</strong>.</div>
+      </div>
+
+      <div>
+        <label>Tags</label>
+        <div id="tags" class="tags"></div>
+        <input id="tagInput" placeholder="Add tag and press Enter">
+      </div>
+
+      <div class="entry-actions">
+        <button id="saveEntry" class="btn">Save Entry</button>
+        <button id="clearDraft" class="btn ghost">Clear Draft</button>
+        <div style="margin-left:auto;text-align:right">
+          <div class="small">Saved entries: <span id="entryCount">0</span></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="card right">
+      <div>
+        <label>Mood Trends</label>
+        <canvas id="moodChart" width="600" height="140"></canvas>
+        <div class="small">Weekly / Monthly overview (local-only)</div>
+      </div>
+
+      <div>
+        <label>Motivational Quote</label>
+        <div class="quotes">
+          <div class="quote-card" id="quoteCard">"Be kind to yourself."</div>
+          <div class="quote-btns">
+            <button id="prevQuote" class="btn ghost small">Prev</button>
+            <button id="nextQuote" class="btn small">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label>Reminders</label>
+        <div class="reminder-set">
+          <input id="reminderTime" type="time">
+          <button id="setReminder" class="btn">Set</button>
+        </div>
+        <div id="reminderList" class="small"></div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- PIN lock modal -->
+  <div id="pinModal" class="overlay hidden">
+    <div class="modal">
+      <h3>Set/Enter PIN to lock journal</h3>
+      <input id="pinInput" type="password" placeholder="4-digit PIN">
+      <div class="modal-actions">
+        <button id="pinSave" class="btn">Save PIN</button>
+        <button id="pinClose" class="btn ghost">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export preview modal -->
+  <div id="exportModal" class="overlay hidden">
+    <div class="modal">
+      <h3>Export Preview</h3>
+      <div id="exportPreview"></div>
+      <div class="modal-actions">
+        <button id="doPrint" class="btn">Print / Save as PDF</button>
+        <button id="closeExport" class="btn ghost">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
